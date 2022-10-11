@@ -1,1 +1,22 @@
-<p>calculadora-padrao works!</p>
+<div>
+  <form [formGroup]="calculadoraForm" (submit)="processaCalculo()">
+    <div>
+      <label>Primeiro Número</label>
+      <input id="primeiro-numero" formControlName="primeiroNumero" placeholder="Primeiro Número"/>
+    </div>
+    <div>
+      <label>Segundo Número</label>
+      <input id="segundo-numero" formControlName="segundoNumero" placeholder="Segundo Número"/>
+    </div>
+    <div>
+      <label>Operador</label>
+      <input id="operador" formControlName="operador" placeholder="Operador"/>
+    </div>
+    <div>
+      <button id="btnCalcula" (click)="processaCalculo()">Calcular</button>
+    </div>
+  </form>
+  <div>
+    Resultado: {{resultado}}
+  </div>
+</div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CalculadoraModel } from "../../model/calculadora.model";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-calculadora-padrao',
@@ -7,19 +9,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalculadoraPadraoComponent implements OnInit {
 
-  private primeiroNumero: string;
-  private segundoNumero: string;
-  private resultado: number;
-  private operador: string;
+   calculadora: CalculadoraModal;
+   calculadoraForm: FormGroup;
+   resultado: number | undefined;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.calculadoraForm = this.formBuilder.group(controls: {
+      primeiroNumero: ['', [Validators.required/*, Validators.pattern(pattern: /^[0-9]/)*/]],
+      segundoNumero: ['', [Validators.required/*, Validators.pattern(pattern: /^[0-9]/)*/]],
+      operador: ['', [Validators.required]],
+    })
   }
 
-  calcular(): number {
-    if (this.operador == '+')
-      return parseFloat(this.primeiroNumero) + parseFloat(this.segundoNumero);
-    return 1;
+  processaCalculo() {
+    const calc = this.calculadoraForm.getRawValue() as CalculadoraModal;
+
+    if(calc.operador === '+') {
+      this.soma(calc.primeiroNumero, calc.segundoNumero);
+    }
+  }
+
+  soma(primeiro:number, segundo:number): void {
+    this.resultado = primeiro + segundo;
   }
 }
